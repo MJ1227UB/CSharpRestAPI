@@ -4,15 +4,17 @@ using CustomerAppDAL.Repositories;
 
 namespace CustomerAppDAL.UOW
 {
-    public class UnitOfWorkMem : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public ICustomerRepository CustomerRepository { get; internal set; }
-        private InMemoryContext context;
+        public IOrderRepository OrderRepository { get; internal set; }
+        private CustomerAppContext context;
 
-        public UnitOfWorkMem()
+        public UnitOfWork()
         {
-            context = new InMemoryContext();
+            context = new CustomerAppContext();
             CustomerRepository = new CustomerRepositoryEFMemory(context);
+            OrderRepository = new OrderRepository(context);
         }
 
 		public int Complete()

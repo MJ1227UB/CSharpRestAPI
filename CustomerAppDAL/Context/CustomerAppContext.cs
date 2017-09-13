@@ -6,19 +6,20 @@ using System.Text;
 
 namespace CustomerAppDAL.Context
 {
-    class InMemoryContext : DbContext
+    class CustomerAppContext : DbContext
     {
-        static DbContextOptions<InMemoryContext> options =
-            new DbContextOptionsBuilder<InMemoryContext>()
+        static DbContextOptions<CustomerAppContext> options =
+            new DbContextOptionsBuilder<CustomerAppContext>()
                          .UseInMemoryDatabase("TheDB")
                          .Options;
 
         //Options That we want in Memory
-        public InMemoryContext() : base(options)
+        public CustomerAppContext() : base(options)
         {
 
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
