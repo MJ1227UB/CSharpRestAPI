@@ -143,7 +143,7 @@ namespace CustomerAppUI
             foreach (var customer in bllFacade.CustomerService.GetAll())
             {
                 Console.WriteLine($"Id: {customer.Id} Name: {customer.FullName} " +
-                                $"Adress: {customer.Address}");
+                                $"Address: {customer.Address}");
             }
             Console.WriteLine("\n");
 

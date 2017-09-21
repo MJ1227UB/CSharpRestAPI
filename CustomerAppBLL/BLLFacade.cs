@@ -3,6 +3,7 @@ using CustomerAppDAL;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using AdressAppBLL;
 
 namespace CustomerAppBLL
 {
@@ -16,6 +17,11 @@ namespace CustomerAppBLL
         public IOrderService OrderService
         {
             get { return new OrderService(new DALFacade());}
+        }
+
+        public IAdressService AdressService
+        {
+            get { return new AdressService(new DALFacade());}
         }
     }
 }

@@ -11,45 +11,45 @@ namespace CustomerRestAPI.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class CustomersController : Controller
+    public class AdressController : Controller
     {
         private BLLFacade facade = new BLLFacade();
-        // GET: api/Customers
+        // GET: api/Address
         [HttpGet]
-        public IEnumerable<CustomerBO> Get()
+        public IEnumerable<AdressBO> Get()
         {
-            return facade.CustomerService.GetAll();
+            return facade.AdressService.GetAll();
         }
 
-        // GET: api/Customers/5
+        // GET: api/Address/5
         [HttpGet("{id}")]
-        public CustomerBO Get(int id)
+        public AdressBO Get(int id)
         {
-            return facade.CustomerService.Get(id);
+            return facade.AdressService.Get(id);
         }
         
-        // POST: api/Customers
+        // POST: api/Address
         [HttpPost]
-        public IActionResult Post([FromBody]CustomerBO customer)
+        public IActionResult Post([FromBody]AdressBO adress)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            return Ok(facade.CustomerService.Create(customer));
+            return Ok(facade.AdressService.Create(adress));
         }
         
-        // PUT: api/Customers/5
+        // PUT: api/Address/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]CustomerBO customer)
+        public IActionResult Put(int id, [FromBody]AdressBO adress)
         {
-            if (id != customer.Id)
+            if (id != adress.Id)
             {
-                return BadRequest("Path Id does not match Customer ID in json object");
+                return BadRequest("Path Id does not match Address ID in json object");
             }
             try
             {
-                return Ok(facade.CustomerService.Update(customer));
+                return Ok(facade.AdressService.Update(adress));
             }
             catch (InvalidOperationException e)
             {
@@ -61,7 +61,7 @@ namespace CustomerRestAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            facade.CustomerService.Delete(id);
+            facade.AdressService.Delete(id);
         }
     }
 }
