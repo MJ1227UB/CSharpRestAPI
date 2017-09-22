@@ -24,8 +24,8 @@ namespace CustomerAppDAL.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                String FilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/CSharpRestAPI";
-                string text = System.IO.File.ReadAllText(FilePath + "/DBstring.txt");
+                String FilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/CSharpRestAPI/CustomerAppDAL";
+                string text = File.ReadAllText(FilePath + "/DBstring.txt");
 
                 optionsBuilder.UseSqlServer(text);
             }
