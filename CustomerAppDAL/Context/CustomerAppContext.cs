@@ -9,6 +9,8 @@ namespace CustomerAppDAL.Context
 {
     class CustomerAppContext : DbContext
     {
+        private static readonly string DBConnectionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DBstring.txt");
+        private static readonly string ConnectionString = File.ReadAllText(DBConnectionPath);
         static DbContextOptions<CustomerAppContext> options =
             new DbContextOptionsBuilder<CustomerAppContext>()
                          .UseInMemoryDatabase("TheDB")
@@ -24,10 +26,7 @@ namespace CustomerAppDAL.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                String FilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/CSharpRestAPI/CustomerAppDAL";
-                string text = File.ReadAllText(FilePath + "/DBstring.txt");
-
-                optionsBuilder.UseSqlServer(text);
+                optionsBuilder.UseSqlServer(ConnectionString);
             }
         }
 
