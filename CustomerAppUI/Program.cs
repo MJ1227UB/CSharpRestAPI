@@ -16,16 +16,14 @@ namespace CustomerAppUI
             var cust1 = new CustomerBO()
             {
                 FirstName = "Bob",
-                LastName = "Dylan",
-                Address = "BongoStreet 202"
+                LastName = "Dylan"
             };
             bllFacade.CustomerService.Create(cust1);
 
             bllFacade.CustomerService.Create(new CustomerBO()
             {
                 FirstName = "Lars",
-                LastName = "Bilde",
-                Address = "Ostestrasse 202"
+                LastName = "Bilde"
             });
 
             string[] menuItems = {
@@ -78,8 +76,6 @@ namespace CustomerAppUI
                 customer.FirstName = Console.ReadLine();
                 Console.WriteLine("LastName: ");
                 customer.LastName = Console.ReadLine();
-                Console.WriteLine("Address: ");
-                customer.Address = Console.ReadLine();
 				bllFacade.CustomerService.Update(customer);
 			}
             else
@@ -132,8 +128,7 @@ namespace CustomerAppUI
             bllFacade.CustomerService.Create(new CustomerBO()
             {
                 FirstName = firstName,
-                LastName = lastName,
-                Address = address
+                LastName = lastName
             });
         }
 
@@ -142,8 +137,7 @@ namespace CustomerAppUI
             Console.WriteLine("\nList of Customers");
             foreach (var customer in bllFacade.CustomerService.GetAll())
             {
-                Console.WriteLine($"Id: {customer.Id} Name: {customer.FullName} " +
-                                $"Address: {customer.Address}");
+                Console.WriteLine($"Id: {customer.Id} Name: {customer.FullName}");
             }
             Console.WriteLine("\n");
 

@@ -7,10 +7,12 @@ using System.Text;
 
 namespace CustomerAppDAL.Context
 {
-    class CustomerAppContext : DbContext
+    public class CustomerAppContext : DbContext
     {
-        private static readonly string DBConnectionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DBstring.txt");
-        private static readonly string ConnectionString = File.ReadAllText(DBConnectionPath);
+        //private static readonly string DBConnectionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DBstring.txt");
+        //private static readonly string ConnectionString = File.ReadAllText(DBConnectionPath);
+
+        public static String ConnectionString = "";
         static DbContextOptions<CustomerAppContext> options =
             new DbContextOptionsBuilder<CustomerAppContext>()
                          .UseInMemoryDatabase("TheDB")
