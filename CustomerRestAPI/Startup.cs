@@ -25,7 +25,7 @@ namespace CustomerRestAPI
                 builder.AddUserSecrets<Startup>();
             Configuration = builder.Build();
 
-            CustomerAppContext.ConnectionString = environment.IsDevelopment() ? Configuration["secretConnectionString"] : Environment.GetEnvironmentVariable("DefaultConnection");
+            CustomerAppContext.ConnectionString = environment.IsDevelopment() ? Configuration["secretConnectionString"] : Environment.GetEnvironmentVariable("SQLAZURECONNSTR_DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -36,12 +36,12 @@ namespace CustomerRestAPI
             //CustomerAppContext.ConnectionString = Configuration["secretConnectionString"];
             services.AddCors();
             services.AddMvc();
-            //services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
-            //{
-            //    builder.WithOrigins("http://localhost:5000")
-            //        .AllowAnyMethod()
-            //        .AllowAnyHeader();
-            //}));
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
             //HTTPS
             //services.Configure<MvcOptions>(options =>
             //{
@@ -52,6 +52,8 @@ namespace CustomerRestAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDeveloperExceptionPage();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -112,7 +114,7 @@ namespace CustomerRestAPI
             //    .AllowAnyMethod()
             //    .AllowCredentials()
             //);
-            app.UseCors(builder => builder.WithOrigins("http://localhost:5000")
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200")
                 .AllowAnyMethod()
                 .AllowCredentials());
             app.UseMvc();
