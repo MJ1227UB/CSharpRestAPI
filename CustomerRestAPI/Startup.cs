@@ -18,9 +18,14 @@ namespace CustomerRestAPI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment environment)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder();
+            if (environment.IsDevelopment())
+                builder.AddUserSecrets<Startup>();
+            Configuration = builder.Build();
+
+            CustomerAppContext.ConnectionString = environment.IsDevelopment() ? Configuration["secretConnectionString"] : Environment.GetEnvironmentVariable("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -28,9 +33,15 @@ namespace CustomerRestAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            CustomerAppContext.ConnectionString = Configuration["secretConnectionString"];
-            //services.AddCors();
+            //CustomerAppContext.ConnectionString = Configuration["secretConnectionString"];
+            services.AddCors();
             services.AddMvc();
+            //services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            //{
+            //    builder.WithOrigins("http://localhost:5000")
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader();
+            //}));
             //HTTPS
             //services.Configure<MvcOptions>(options =>
             //{
@@ -44,7 +55,7 @@ namespace CustomerRestAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                var facade = new BLLFacade();
+                //var facade = new BLLFacade();
                 //var adress = facade.AdressService.Create(
                 //    new AdressBO()
                 //    {
@@ -101,7 +112,9 @@ namespace CustomerRestAPI
             //    .AllowAnyMethod()
             //    .AllowCredentials()
             //);
-
+            app.UseCors(builder => builder.WithOrigins("http://localhost:5000")
+                .AllowAnyMethod()
+                .AllowCredentials());
             app.UseMvc();
         }
     }

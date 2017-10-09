@@ -9,14 +9,19 @@ namespace CustomerAppDAL.Context
 {
     public class CustomerAppContext : DbContext
     {
-        //private static readonly string DBConnectionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DBstring.txt");
-        //private static readonly string ConnectionString = File.ReadAllText(DBConnectionPath);
+        //public static readonly string DBConnectionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DBstring.txt");
+        //public static readonly string ConnectionString = File.ReadAllText(DBConnectionPath);
 
         public static String ConnectionString = "";
-        static DbContextOptions<CustomerAppContext> options =
-            new DbContextOptionsBuilder<CustomerAppContext>()
-                         .UseInMemoryDatabase("TheDB")
-                         .Options;
+        //static DbContextOptions<CustomerAppContext> options =
+        //    new DbContextOptionsBuilder<CustomerAppContext>()
+        //                 .UseInMemoryDatabase("TheDB")
+        //                 .Options;
+
+        public CustomerAppContext()
+        {
+            Database.EnsureCreated();
+        }
 
         //Options That we want in Memory
         /*public CustomerAppContext() : base(options)
@@ -30,6 +35,7 @@ namespace CustomerAppDAL.Context
             {
                 optionsBuilder.UseSqlServer(ConnectionString);
             }
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
