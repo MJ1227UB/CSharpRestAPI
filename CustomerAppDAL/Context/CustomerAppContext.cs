@@ -12,7 +12,7 @@ namespace CustomerAppDAL.Context
         //public static readonly string DBConnectionPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DBstring.txt");
         //public static readonly string ConnectionString = File.ReadAllText(DBConnectionPath);
 
-        public static String ConnectionString = "";
+        public static string ConnectionString = "";
         //static DbContextOptions<CustomerAppContext> options =
         //    new DbContextOptionsBuilder<CustomerAppContext>()
         //                 .UseInMemoryDatabase("TheDB")
